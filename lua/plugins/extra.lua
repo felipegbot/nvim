@@ -67,8 +67,25 @@ end, {
   desc = "Re-enable autoformat-on-save",
 })
 
+vim.api.nvim_create_user_command("FT", function()
+  vim.g.autoformat = not vim.g.autoformat
+  if vim.g.autoformat then
+    vim.notify("Autoformat-on-save enabled", vim.log.levels.INFO)
+  else
+    vim.notify("Autoformat-on-save disabled", vim.log.levels.INFO)
+  end
+end, {
+  desc = "Toggle autoformat-on-save",
+})
+
 return {
   { "sainnhe/sonokai" },
+  {
+    "petertriho/nvim-scrollbar",
+    config = function()
+      require("scrollbar").setup()
+    end,
+  },
   {
     "vyfor/cord.nvim",
     build = "./build",
@@ -88,13 +105,20 @@ return {
     cmd = "Copilot",
     build = ":Copilot auth",
     opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-      filetypes = {
-        markdown = true,
-        help = true,
-      },
+      suggestion = { enabled = true, auto_trigger = true },
     },
+    config = function()
+      require("copilot").setup({
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<M-i>",
+            prev = "<M-o>",
+            next = "<M-p>",
+          },
+        },
+      })
+    end,
   },
 
   {

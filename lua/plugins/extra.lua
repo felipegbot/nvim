@@ -80,6 +80,7 @@ end, {
 
 return {
   { "sainnhe/sonokai" },
+  { "wakatime/vim-wakatime", lazy = false },
   {
     "petertriho/nvim-scrollbar",
     config = function()

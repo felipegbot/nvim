@@ -40,6 +40,8 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
+vim.keymap.set({ "n", "v" }, "∆", ":m '>+1<cr>gv=gv", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "˚", ":m '<-2<cr>gv=gv", { noremap = true, silent = true })
 vim.keymap.set("n", "Q", "<nop>")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -113,7 +115,7 @@ return {
         suggestion = {
           auto_trigger = true,
           keymap = {
-            accept = "<M-i>",
+            accept = "<C-i>",
             prev = "<M-o>",
             next = "<M-p>",
           },

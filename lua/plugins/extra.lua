@@ -40,8 +40,16 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
-vim.keymap.set({ "n", "v" }, "∆", ":m '>+1<cr>gv=gv", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "˚", ":m '<-2<cr>gv=gv", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "∆", ":MoveLine(1)<CR>")
+vim.keymap.set({ "n", "v" }, "˚", ":MoveLine(-1)<CR>")
+vim.keymap.set({ "n", "v" }, "˙", ":MoveHChar(-1)<CR>")
+vim.keymap.set({ "n", "v" }, "¬", ":MoveHChar(1)<CR>")
+
+vim.keymap.set({ "v" }, "∆", ":MoveBlock(1)<CR>")
+vim.keymap.set({ "v" }, "˚", ":MoveBlock(-1)<CR>")
+vim.keymap.set({ "v" }, "˙", ":MoveHBlock(-1)<CR>")
+vim.keymap.set({ "v" }, "¬", ":MoveHBlock(1)<CR>")
+
 vim.keymap.set("n", "Q", "<nop>")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -82,18 +90,17 @@ end, {
 
 return {
   { "sainnhe/sonokai" },
-  { "wakatime/vim-wakatime", lazy = false },
+  {
+    "fedepujol/move.nvim",
+    config = function()
+      require("move").setup({})
+    end,
+  },
   {
     "petertriho/nvim-scrollbar",
     config = function()
       require("scrollbar").setup()
     end,
-  },
-  {
-    "vyfor/cord.nvim",
-    build = "./build",
-    event = "VeryLazy",
-    opts = {},
   },
   {
     "norcalli/nvim-colorizer.lua",
